@@ -20,7 +20,7 @@ Calibration Process is as follows:
   stick center then press TELE
 
 # Doom Wad
-The Code by default loads doom1.wad from the root of the fat32 sdcard in the radio.
+The Code by default loads doom1.wad from the root of the fat32 sdcard that is inserted in the radio.
 
 # Building
 Building is done with a makefile and requires the gcc arm toolchain.

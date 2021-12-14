@@ -116,7 +116,7 @@ int main(void)
     while (1) {};
   }
 
-  umm_init_heap((void*) 0xD004A400, 0x75000 - 1);
+  umm_init_heap((void*) 0xD004A400, 0x78000 - 1);
 
   atexit(HAL_NVIC_SystemReset);
   at_quick_exit(HAL_NVIC_SystemReset);

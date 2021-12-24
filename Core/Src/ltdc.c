@@ -21,6 +21,16 @@
 #include "ltdc.h"
 
 /* USER CODE BEGIN 0 */
+
+#define HBP  42
+#define VBP  12
+
+#define HSW  2
+#define VSW  10
+
+#define HFP  3
+#define VFP  2
+
 #include "../../../Display/display.h"
 #define LCD_FRAME_BUFFER       ((uint32_t)0xD0000000)
 display_frame_buffer_t LCDFrameBuffer = (display_frame_buffer_t) LCD_FRAME_BUFFER;
@@ -53,14 +63,14 @@ void MX_LTDC_Init(void)
   hltdc.Init.VSPolarity = LTDC_VSPOLARITY_AL;
   hltdc.Init.DEPolarity = LTDC_DEPOLARITY_AL;
   hltdc.Init.PCPolarity = LTDC_PCPOLARITY_IIPC;
-  hltdc.Init.HorizontalSync = 2;
-  hltdc.Init.VerticalSync = 10;
-  hltdc.Init.AccumulatedHBP = 42;
-  hltdc.Init.AccumulatedVBP = 12;
-  hltdc.Init.AccumulatedActiveW = 522;
-  hltdc.Init.AccumulatedActiveH = 284;
-  hltdc.Init.TotalWidth = 525;
-  hltdc.Init.TotalHeigh = 286;
+  hltdc.Init.HorizontalSync = HSW;
+  hltdc.Init.VerticalSync = VSW;
+  hltdc.Init.AccumulatedHBP = HBP;
+  hltdc.Init.AccumulatedVBP = VBP;
+  hltdc.Init.AccumulatedActiveW = display_get_width() + HBP;
+  hltdc.Init.AccumulatedActiveH = display_get_height() + VBP;
+  hltdc.Init.TotalWidth = display_get_width() + HBP + HFP;
+  hltdc.Init.TotalHeigh = display_get_height() + VBP + VFP;
   hltdc.Init.Backcolor.Blue = 0;
   hltdc.Init.Backcolor.Green = 0;
   hltdc.Init.Backcolor.Red = 0;
@@ -69,17 +79,17 @@ void MX_LTDC_Init(void)
     Error_Handler();
   }
   pLayerCfg.WindowX0 = 0;
-  pLayerCfg.WindowX1 = 480;
+  pLayerCfg.WindowX1 = display_get_width();
   pLayerCfg.WindowY0 = 0;
-  pLayerCfg.WindowY1 = 272;
+  pLayerCfg.WindowY1 = display_get_height();
   pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
   pLayerCfg.Alpha = 255;
   pLayerCfg.Alpha0 = 0;
   pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
   pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
   pLayerCfg.FBStartAdress = (uint32_t) LCDFrameBuffer;
-  pLayerCfg.ImageWidth = 480;
-  pLayerCfg.ImageHeight = 272;
+  pLayerCfg.ImageWidth = display_get_width();
+  pLayerCfg.ImageHeight = display_get_height();
   pLayerCfg.Backcolor.Blue = 0;
   pLayerCfg.Backcolor.Green = 0;
   pLayerCfg.Backcolor.Red = 0;
